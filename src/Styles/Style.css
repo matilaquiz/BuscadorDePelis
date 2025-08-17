@@ -1,0 +1,38 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(231, 206, 169);
+}
+
+.Principal {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 1200px;
+  background-color: white;
+  border: 2px solid black;
+  padding: 10px 30px;
+  height: 500px;
+  border-radius: 40px;
+}
+
+.Contenido {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.Buscador {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+}
+@media (max-width: 1200px) {
+  .Principal {
+    width: 800px;
+  }
+}
