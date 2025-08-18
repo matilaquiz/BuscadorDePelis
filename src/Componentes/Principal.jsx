@@ -3,17 +3,27 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "../Styles/Style.css";
 import useForm from "../Hooks/useForm";
+import useFetchPelis from "../Hooks/useFetchPelis";
+import { useState } from "react";
 export default function Principal() {
+  const [query, setQuery] = useState({});
   const initialValue = {
     nombre: "",
     año: "",
   };
   const { formulario, error, handleForm } = useForm(initialValue);
 
+  const search = (e) => {
+    e.preventDefault();
+    setQuery(formulario);
+  };
+
+  const { peliculas, errorFetch } = useFetchPelis(query);
+  console.log(peliculas);
   return (
     <div className="Principal">
       <div className="Contenido">
-        <form className="Buscador">
+        <form className="Buscador" onSubmit={search}>
           <TextField
             name="nombre"
             label="Nombre de la película que busacas"
@@ -34,6 +44,7 @@ export default function Principal() {
             }}
           ></TextField>
           <Button
+            type="submit"
             sx={{
               height: "60px",
               background: "red",
