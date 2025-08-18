@@ -6,26 +6,38 @@ export default function useFetchPelis({ nombre, año }) {
   const apiKey = "728cf9d4b04dc32c7af1ce0b10384611";
   const [peliculas, setPeliculas] = useState([]);
   const [errorFetch, setErrorFetch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (nombre === undefined) return;
     const fetchPelis = async () => {
+      setLoading(true);
       if (nombre === "") {
-        setErrorFetch("no se lleno el nombre");
+        setErrorFetch("No se ingreso ningun nombre");
+        setLoading(false);
         return;
       }
       try {
-        const resp = await axios.get(
-          `${url}?api_key=${apiKey}&query=${nombre}`
-        );
-        const pelis = resp.data.resutls;
+        const resp = await axios.get(url, {
+          params: {
+            api_key: apiKey,
+            query: nombre,
+            // year: año,
+            language: "es-ES", // opcional, para traer en español
+          },
+        });
+        const pelis = resp.data.results;
+        setLoading(false);
         setPeliculas(pelis);
+        setErrorFetch("");
       } catch (e) {
-        setErrorFetch(e);
+        setErrorFetch("Error en el servidor: ", e.msj);
+        setLoading(false);
       }
     };
 
     fetchPelis();
   }, [nombre]);
 
-  return { peliculas, errorFetch };
+  return { peliculas, errorFetch, loading };
 }
