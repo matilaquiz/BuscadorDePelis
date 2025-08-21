@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "../Styles/Style.css";
@@ -8,15 +8,18 @@ import { useState } from "react";
 import Cards from "./Cards";
 import { Alert, Stack } from "@mui/material";
 import Loading from "./Loading";
+import { GeneroPelisContext } from "../assets/Context/GeneroPelisContext";
+import Select from "./Selector";
 
 export default function Principal() {
+  const { generos } = useContext(GeneroPelisContext);
   const [query, setQuery] = useState({});
   const initialValue = {
     nombre: "",
-    año: "",
+    genero: "",
   };
   const { formulario, error, handleForm } = useForm(initialValue);
-
+  console.log(generos);
   const search = (e) => {
     e.preventDefault();
     if (error) return;
@@ -99,6 +102,7 @@ export default function Principal() {
           >
             Buscar Película
           </Button>
+          <Select handleForm={handleForm} formulario={formulario}></Select>
         </form>
         <div className="cartelera">
           {loading && <Loading></Loading>}

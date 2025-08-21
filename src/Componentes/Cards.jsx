@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function Cards({ titulo, descripcion, imagen = "hola" }) {
+export default function Cards({ titulo, descripcion, imagen }) {
   return (
     <Card
       sx={{
@@ -24,7 +24,11 @@ export default function Cards({ titulo, descripcion, imagen = "hola" }) {
     >
       <CardMedia
         sx={{ height: 450, width: 350 }}
-        image={`https://image.tmdb.org/t/p/w500${imagen}`}
+        image={
+          imagen
+            ? `https://image.tmdb.org/t/p/w500${imagen}`
+            : "https://placehold.co/200x300?text=Sin+Foto"
+        }
         title={imagen}
       />
       <CardContent>

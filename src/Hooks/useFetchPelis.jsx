@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 export default function useFetchPelis({ nombre, año }) {
   const url = "https://api.themoviedb.org/3/search/movie";
-  const apiKey = "728cf9d4b04dc32c7af1ce0b10384611";
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [peliculas, setPeliculas] = useState([]);
   const [errorFetch, setErrorFetch] = useState("");
   const [loading, setLoading] = useState(false);

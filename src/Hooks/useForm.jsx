@@ -4,7 +4,7 @@ export default function useForm(initialValue) {
   const [formulario, setFormulario] = useState(initialValue);
   const [error, setError] = useState("");
   const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,;:!?¿¡'"()\-]{2,}$/;
-  const regexAño = /^[0-9]{4}$/;
+  //   const regexAño = /^[0-9]{4}$/;
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -19,7 +19,6 @@ export default function useForm(initialValue) {
   const validar = (value, name) => {
     const reglas = {
       nombre: regexNombre,
-      año: regexAño,
     };
 
     return reglas[name].test(value) ?? false;
