@@ -4,10 +4,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { GeneroPelisContext } from "../assets/Context/GeneroPelisContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 export default function Selector({ handleForm, formulario }) {
   const { generos } = useContext(GeneroPelisContext);
-
+  // const [x, setx] = useState();
+  // const handle = ({ target }) => {
+  //   setx(target.value);
+  // };
+  // console.log(x);
   if (!generos.genres) {
     return (
       <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
@@ -74,7 +78,10 @@ export default function Selector({ handleForm, formulario }) {
         labelId="demo-simple-select-filled-label"
         id="demo-simple-select-filled"
         value={formulario.genero}
-        onChange={handleForm}
+        onChange={(e) => {
+          const { name, value } = e.target;
+          handleForm({ target: { name, value } });
+        }}
       >
         <MenuItem value="">
           <em>Ninguno</em>
