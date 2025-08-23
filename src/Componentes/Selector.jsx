@@ -14,7 +14,7 @@ export default function Selector({ handleForm, formulario }) {
   // console.log(x);
   if (!generos.genres) {
     return (
-      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ minWidth: 120 }}>
         <InputLabel>Cargando...</InputLabel>
         <Select
           name="genero"
@@ -32,7 +32,7 @@ export default function Selector({ handleForm, formulario }) {
       variant="filled"
       sx={{
         width: "300px",
-        m: 1,
+        marginLeft: 2.5,
         minWidth: 120,
         "& .MuiFilledInput-root": {
           backgroundColor: "rgba(20, 20, 20, 0.9)",
@@ -83,9 +83,7 @@ export default function Selector({ handleForm, formulario }) {
           handleForm({ target: { name, value } });
         }}
       >
-        <MenuItem value="">
-          <em>Ninguno</em>
-        </MenuItem>
+        <MenuItem value="">Ninguno</MenuItem>
         {generos.genres.map((genero) => (
           <MenuItem key={genero.id} value={genero.id}>
             {genero.name}

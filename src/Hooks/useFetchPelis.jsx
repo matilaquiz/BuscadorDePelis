@@ -28,10 +28,11 @@ export default function useFetchPelis({ nombre, genero }) {
           },
         });
         const pelis = resp.data.results;
-        setNopelis(pelis.length === 0 ? true : false);
+
         setLoading(false);
         setPeliculas(pelis);
         setErrorFetch("");
+        setNopelis(pelis.length === 0 ? true : false);
       } catch (e) {
         setErrorFetch("Error en el servidor: ", e.msj);
         setLoading(false);

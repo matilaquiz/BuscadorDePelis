@@ -27,26 +27,8 @@ export default function Principal() {
     setQuery(formulario);
   };
 
-  // const setPapa = (nombre) => {
-  //   papa = nombre;
-  // };
-
-  // const objeto = {
-  //   nombre: "yahir",
-  //   apellido: "gonzales",
-  // };
-  // setPapa(objeto);
-
   const { peliculas, errorFetch, loading, noPelis } = useFetchPelis(query);
 
-  useEffect(() => {
-    const pelis = peliculas.filter((pelis) =>
-      pelis.genre_ids.includes(Number(formulario.genero))
-    );
-    setPel(query.genero !== "" ? pelis : peliculas);
-  }, [query]);
-
-  console.log(pel);
   return (
     <div className="Principal">
       {/* 🎥 Video de fondo */}
@@ -209,14 +191,20 @@ export default function Principal() {
           {!loading &&
             !errorFetch &&
             peliculas?.length > 0 &&
-            peliculas.map((peli) => (
-              <Cards
-                titulo={peli.title}
-                descripcion={peli.overview}
-                imagen={peli.poster_path}
-                key={peli.id}
-              ></Cards>
-            ))}
+            peliculas
+              .filter((peli) =>
+                query.genero
+                  ? peli.genre_ids.includes(Number(query.genero))
+                  : true
+              )
+              .map((peli) => (
+                <Cards
+                  titulo={peli.title}
+                  descripcion={peli.overview}
+                  imagen={peli.poster_path}
+                  key={peli.id}
+                ></Cards>
+              ))}
         </div>
       </div>
     </div>
