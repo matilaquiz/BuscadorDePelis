@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function useFetchPelis({ nombre, año }) {
+export default function useFetchPelis({ nombre, genero }) {
   const url = "https://api.themoviedb.org/3/search/movie";
   const apiKey = import.meta.env.VITE_API_KEY;
   const [peliculas, setPeliculas] = useState([]);
   const [errorFetch, setErrorFetch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [noPelis, setNopelis] = useState(false);
 
   useEffect(() => {
     if (nombre === undefined) return;
@@ -27,6 +28,7 @@ export default function useFetchPelis({ nombre, año }) {
           },
         });
         const pelis = resp.data.results;
+        setNopelis(pelis.length === 0 ? true : false);
         setLoading(false);
         setPeliculas(pelis);
         setErrorFetch("");
@@ -39,5 +41,5 @@ export default function useFetchPelis({ nombre, año }) {
     fetchPelis();
   }, [nombre]);
 
-  return { peliculas, errorFetch, loading };
+  return { peliculas, errorFetch, loading, noPelis };
 }

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { GeneroPelisContext } from "../assets/Context/GeneroPelisContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 export default function Selector({ handleForm, formulario }) {
   const { generos } = useContext(GeneroPelisContext);
   // const [x, setx] = useState();

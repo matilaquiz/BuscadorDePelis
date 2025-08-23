@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "../Styles/Style.css";
@@ -12,22 +12,41 @@ import { GeneroPelisContext } from "../assets/Context/GeneroPelisContext";
 import Select from "./Selector";
 
 export default function Principal() {
-  const { generos } = useContext(GeneroPelisContext);
   const [query, setQuery] = useState({});
+  const [pel, setPel] = useState([]);
+
   const initialValue = {
     nombre: "",
     genero: "",
   };
   const { formulario, error, handleForm } = useForm(initialValue);
-  console.log(generos);
+
   const search = (e) => {
     e.preventDefault();
     if (error) return;
     setQuery(formulario);
   };
 
-  const { peliculas, errorFetch, loading } = useFetchPelis(query);
+  // const setPapa = (nombre) => {
+  //   papa = nombre;
+  // };
 
+  // const objeto = {
+  //   nombre: "yahir",
+  //   apellido: "gonzales",
+  // };
+  // setPapa(objeto);
+
+  const { peliculas, errorFetch, loading, noPelis } = useFetchPelis(query);
+
+  useEffect(() => {
+    const pelis = peliculas.filter((pelis) =>
+      pelis.genre_ids.includes(Number(formulario.genero))
+    );
+    setPel(query.genero !== "" ? pelis : peliculas);
+  }, [query]);
+
+  console.log(pel);
   return (
     <div className="Principal">
       {/* 🎥 Video de fondo */}
@@ -158,7 +177,8 @@ export default function Principal() {
             )}
           {!errorFetch &&
             peliculas.length === 0 &&
-            formulario.nombre !== "" && (
+            formulario.nombre !== "" &&
+            noPelis && (
               <Stack
                 sx={{ width: "50%", marginTop: "40px", height: "250px" }}
                 spacing={2}
